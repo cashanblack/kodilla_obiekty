@@ -1,4 +1,4 @@
-{
+
 	function Telefon(marka, cena, kolor, slots, memory) {
 		this.marka = marka;
 		this.cena = cena;
@@ -12,6 +12,7 @@
 		var message = 'Marka telefonu to ' + this.marka;
 		message += ', kolor to ' + this.kolor;
 		message += ', a cena to ' + this.cena + ' zł.';
+		message += ', koszt gwarancji to ' + getWarrantyCost(this.cena) + ' zł';
 		console.log(message);
 	}
 
@@ -19,7 +20,11 @@
 		var message = Math.floor(parseFloat(this.memory / this.cena, 2) * 100) / 100 + ' MB/zł';
 		console.log(message);
 	}
-}
+	
+
+function getWarrantyCost(fullprice) {
+		return fullprice *0.1;
+	}
 
 var iPhone6S = new Telefon("Apple", 2250, "srebrny", 1, 2000);
 var SamsungGalaxy = new Telefon("Samsung", 709, "czarny", 1, 500);
