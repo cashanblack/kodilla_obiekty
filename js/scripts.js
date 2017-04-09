@@ -29,7 +29,10 @@ $(function () {
 			});
 
 			$columnAddCard.click(function () {
-				self.addCard(new Card(prompt("Wpisz nazwę karty")));
+				var newCardName = prompt("Wpisz nazwę karty");
+				if (typeof newCardName == "string") {
+					self.addCard(new Card(newCardName));
+				}
 			})
 			//
 			$column.append($columnTitle).append($columnDelete).append($columnAddCard).append($columnCardList);
@@ -100,11 +103,14 @@ $(function () {
 		}).disableSelection();
 	}
 
-	$('.create-column')
-	.click(function () {
-		var name = prompt('Wpisz nazwę kolumny');
-		var column = new Column(name);
-		board.addColumn(column);
+	$('.create-column').click(function () {
+		var newColumnName = prompt('Wpisz nazwę kolumny');
+
+		if (typeof newColumnName == "string") {
+			var column = new Column(newColumnName);
+			board.addColumn(column);
+		}
+
 	});
 
 	//
