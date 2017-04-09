@@ -29,10 +29,16 @@ $(function () {
 			});
 
 			$columnAddCard.click(function () {
-				var newCardName = prompt("Wpisz nazwę karty");
-				if (typeof newCardName == "string") {
-					self.addCard(new Card(newCardName));
-				}
+				
+				rewriteMessagePanel("Podaj nazwę karty:", "newCardName")
+				$('#createButton').unbind(); // nie wiem czy tak to sie robi - w każdym razie nie chcem by mi sie "clik'i" "nakładały"
+				$('#createButton').on("click", function () {
+					var newCardName = $("#newCardName").val();
+					if (newCardName) {
+						self.addCard(new Card(newCardName));
+					}
+				});
+
 			})
 			//
 			$column.append($columnTitle).append($columnDelete).append($columnAddCard).append($columnCardList);
@@ -104,15 +110,26 @@ $(function () {
 	}
 
 	$('.create-column').click(function () {
-		var newColumnName = prompt('Wpisz nazwę kolumny');
+		rewriteMessagePanel("Podaj nazwę kolumny:", "newColumnName")
 
-		if (typeof newColumnName == "string") {
-			var column = new Column(newColumnName);
-			board.addColumn(column);
-		}
+		$('#createButton').unbind();
+		$('#createButton').on("click", function () {
+			var newColumnName = $("#newColumnName").val();
+			if (newColumnName) {
+				board.addColumn(new Column(newColumnName));
+			}
+		});
 
 	});
 
+	// to pewnie powinno być jakąś metoda obiektów albo cos... 
+	function rewriteMessagePanel(infotext, varName){
+		$('#messageContainer').empty();
+		var $panelContentDesc = $('<p>').text(infotext);
+		var $panelContentInp = $('<input>').attr("id", varName).attr("type", "text");
+		$('#messageContainer').append($panelContentDesc).append($panelContentInp);
+		$('#messagePanel').modal();
+	}
 	//
 	//
 	//
